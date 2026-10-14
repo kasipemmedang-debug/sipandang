@@ -1,0 +1,30 @@
+# SIPANDANG — keamanan dasar hosting
+
+# Blokir script maintenance / debug / install (Apache 2.4)
+<IfModule mod_authz_core.c>
+    <FilesMatch "^(fix_|upgrade_|install_|reset_).*\.php$">
+        Require all denied
+    </FilesMatch>
+    <Files "check_json.php">
+        Require all denied
+    </Files>
+</IfModule>
+
+# Apache 2.2 / LiteSpeed fallback
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^(fix_|upgrade_|install_|reset_).*\.php$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <Files "check_json.php">
+        Order allow,deny
+        Deny from all
+    </Files>
+</IfModule>
+
+# (Opsional) Batasi index.php — sesuaikan IP kantor jika perlu
+<Files "index.php">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+</Files>

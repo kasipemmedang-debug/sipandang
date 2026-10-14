@@ -1,0 +1,8 @@
+koneksi.local.php
+*.local.php
+*.env
+.env
+.env.*
+logs/*.log
+!logs/.htaccess
+
